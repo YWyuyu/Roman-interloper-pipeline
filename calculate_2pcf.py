@@ -4,7 +4,7 @@ from pycorr import TwoPointCorrelationFunction, KMeansSubsampler
 from cosmoprimo.fiducial import DESI
 from build_data_and_random import build_sample, build_randoms
 
-from roman_config import *
+from Roman_config import *
 
 def main():
     ensure_dirs()
