@@ -4,7 +4,7 @@ from cosmoprimo.fiducial import DESI
 from RascalC import run_cov
 from RascalC.cov_utils import export_cov_legendre
 
-from roman_config import *
+from Roman_config import *
 
 def main():
     ensure_dirs()
