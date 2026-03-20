@@ -11,7 +11,7 @@ from desilike.profilers import MinuitProfiler
 from desilike.samplers import EmceeSampler
 from desilike.samples import plotting
 
-from roman_config import *
+from Roman_config import *
 
 def cut_matrix(cov, xcov, ellscov, xlim):
     assert len(cov) == len(xcov) * len(ellscov), f"Input matrix has size {len(cov)}, different than {len(xcov)} x {len(ellscov)}"
