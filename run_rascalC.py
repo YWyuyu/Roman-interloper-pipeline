@@ -62,7 +62,8 @@ def run_rascalc():
         randoms_samples1=randoms_samples1,
         position_type="rdd",
         skip_s_bins = skip_s_bins,
-        seed=rascalC_seed
+        normalize_wcounts = True
+        # seed=rascalC_seed
     )
     print("Cutting range:", skip_s_bins)
 

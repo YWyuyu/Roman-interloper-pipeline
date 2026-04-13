@@ -5,8 +5,10 @@ from pathlib import Path
 # Main science choices
 # =========================
 tracer = "fullcorrect"
-compare_tracers = ["fullcorrect", "observe1"]
-interloper_percent = 0.07
+# compare_tracers = ["fullcorrect", "Ha-S3", "o3-Hb"]
+tracer_percent = 7
+interloper_percent = tracer_percent/100.
+
 periodic_boxsize = 0
 
 zmin, zmax = 1.5, 1.8
@@ -69,11 +71,14 @@ ells = (0, 2)
 apmode = "qisoqap"
 recon_mode = ""
 smoothing_radius = 15
-broadband = "power"
+broadband = "pcs2"         # pcs, pcs2, power3, power
 
-sigmas = 3.0
-sigmapar = 10.0
-sigmaper = 6.0
+# sigmas = 3.0
+# sigmapar = 10.0
+# sigmaper = 6.0
+sigmas = 2.0
+sigmapar = 6.0
+sigmaper = 3.0
 # free_damping = True
 free_damping = False
 
@@ -91,12 +96,24 @@ zcat_min, zcat_max = 0.0, 3.0
 
 L_Ha = 6549.
 L_S3 = 9531.
-# L_S3 = 5008
-L_ratio = L_S3 / L_Ha
+L_o3 = 5008
+L_Hb = 4861
+
+if tracer == "Ha-S3":
+    L_ratio = L_S3 / L_Ha
+
+if tracer == "o3-Hb":
+    L_ratio = L_Hb / L_o3
+
+if tracer == "fullcorrect":
+    L_ratio = L_S3 / L_Ha
 
 # =========================
 # Paths
 # =========================
+if tracer != "fullcorrect":
+    tracer = tracer+f"-{tracer_percent}%"
+
 base_dir = Path("/pscratch/sd/y/yuyuwang/Roman_data")
 bao_fit_dir = base_dir / "BAO_fit"
 two_pt_dir = base_dir / "2PT_result"
@@ -104,11 +121,11 @@ two_pt_dir = base_dir / "2PT_result"
 catalog_path = base_dir / "sfr_l2_catalog_all_redshiftspace.csv"
 random_catalog_path = base_dir / "diffsky_LastJourney_random_catalog_all.csv"
 
-cov_base = f"Roman_interloper_nofreedamping_BAOfit_test-{tracer}_z{zmin}-{zmax}_fixed"
+cov_base = f"Roman_interloper_BAOfit_test-{tracer}_z{zmin}-{zmax}_fixed"
 cov_dir = bao_fit_dir / cov_base
 cov_tmp_dir = cov_dir / "tmp"
 cov_txt_dir = cov_dir / "cov_txt"
-mcmc_dir = bao_fit_dir / "MCMC_chain_nofreedamping"
+mcmc_dir = bao_fit_dir / "MCMC_chain"
 
 data_name = two_pt_dir / f"data_positions_{tracer}_z{zmin}-{zmax}.npy"
 rand_name = two_pt_dir / f"random_positions_{tracer}_z{zmin}-{zmax}.npy"
